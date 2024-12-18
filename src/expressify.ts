@@ -42,4 +42,24 @@ app.post('/signup', async (req : Request, res : Response) => {
 
 })
 
+app.post('/todos', async (req : Request, res : Response) => {
+  try {
+    const data = todoSchema.parse(req.body);
+    const userId = Number(req.query.userId);
+
+    if(!userId) {
+      res.status(400).json({message : "UserId is required"});
+      return;
+    }
+
+    await client.todo.create({
+      data : {...data, userId}
+    })
+
+    res.status(200).json({message : "todo created successfully"});
+  } catch (e) {
+     res.status(400).json({message : "Error while adding todod",e});
+  }
+})
+
 app.listen(3000);

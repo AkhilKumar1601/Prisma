@@ -47,4 +47,21 @@ app.post('/signup', (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         });
     }
 }));
+app.post('/todos', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const data = todoSchema.parse(req.body);
+        const userId = Number(req.query.userId);
+        if (!userId) {
+            res.status(400).json({ message: "UserId is required" });
+            return;
+        }
+        yield client.todo.create({
+            data: Object.assign(Object.assign({}, data), { userId })
+        });
+        res.status(200).json({ message: "todo created successfully" });
+    }
+    catch (e) {
+        res.status(400).json({ message: "Error while adding todod", e });
+    }
+}));
 app.listen(3000);

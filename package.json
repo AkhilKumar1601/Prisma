@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "tsc -b && node ./dist/index.js"
+    "dev": "tsc -b && node ./dist/expressify.js"
   },
   "keywords": [],
   "author": "",
@@ -11,9 +11,12 @@
   "description": "",
   "dependencies": {
     "@prisma/client": "^6.0.1",
+    "@types/bcrypt": "^5.0.2",
     "@types/express": "^5.0.0",
+    "bcrypt": "^5.1.1",
     "express": "^4.21.2",
     "prisma": "^6.0.1",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.2",
+    "zod": "^3.24.1"
   }
 }

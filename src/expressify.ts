@@ -62,4 +62,29 @@ app.post('/todos', async (req : Request, res : Response) => {
   }
 })
 
+
+app.get('/todos', async (req : Request, res : Response) => {
+  try {
+     const userId = Number(req.query.userId);
+
+     if(!userId) {
+      res.status(400).json({
+        message : "userId is required",
+      })
+      return;
+     }
+
+     const todos = await client.todo.findMany({
+      where : {userId},
+     })
+
+     res.status(200).json({
+      message : "Todos fetched successfully",todos
+     })
+
+  } catch (e) {
+    res.status(500).json({message : "Error while fetching the todos",e})
+  }
+})
+
 app.listen(3000);
